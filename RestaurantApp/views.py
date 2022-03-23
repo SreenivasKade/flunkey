@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from .forms import TempDeliveryForm
 from RestaurantApp.models import Delivery, Restaurant, Table, TempDelivery
 import time
 # Create your views here.
@@ -28,8 +29,20 @@ def SelectTableView(request, id):
     #... updating the table details in TempDelivery object.....
     t.table_no = table.table_no
     t.save()
-    return redirect('RestaurantApp:confirm-delivery')
+    return redirect('RestaurantApp:food-type')
 #..................................................................................................
+
+
+#....select foodtype...............................................................................
+def SelectFoodTypeView(request):
+    obj=TempDelivery.objects.latest('pk')
+    form=TempDeliveryForm()
+    if request.method=='POST':
+        form=TempDeliveryForm(request.POST,instance=obj)
+        if form.is_valid():
+            form.save()
+        return redirect('RestaurantApp:confirm-delivery')
+    return render(request,'RestaurantApp/foodtype.html',{'form':form})
 
 
 #... Confirm DElivery details .....................................................................
@@ -44,6 +57,8 @@ def ConfirmDetailsVIew(request):
                                        bot_name = t.bot_name,
                                        bot_color = t.bot_color,
                                        table_no = t.table_no,
+                                       food_type = t.food_type,
+                                       speed = t.speed,
                                        port = t.port,
                                        ip = t.ip,
                                        time = time.time()
@@ -56,10 +71,10 @@ def ConfirmDetailsVIew(request):
 
 
 #... Delivery details .............................................................................
+#..................................................................................................
 def DeliveryDetailView(request):
     d = Delivery.objects.filter(restaurant = request.user.rest.rest_name).latest('pk')
     return render(request, 'RestaurantApp/delivery_details.html', {'d':d})
-#..................................................................................................
 
 
 #... End deliveries today .........................................................................

@@ -6,9 +6,10 @@ from RestaurantApp.models import Restaurant
 
 # BOT MODEL.................................................................................
 class Bot(models.Model):
+    
     rest = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     bot_no = models.IntegerField()
-    bot_name = models.CharField(max_length = 300, unique = True)
+    bot_name = models.CharField(max_length = 300)
     bot_color = models.CharField(max_length = 200)
     image = models.ImageField(upload_to = 'bot_images')
     status = models.BooleanField(default=True, help_text="bot working(active or inactive)")   # active or inactive

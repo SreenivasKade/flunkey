@@ -27,7 +27,7 @@ urlpatterns = [
     path('rest/', include('RestaurantApp.urls')),
     path('bots/', include('BotsApp.urls')),
     path('dashboard/', include('DashboardApp.urls')),
-
+    path('api/', include('testapp.urls')), 
     path('api/', include('api.urls')),    
 ]
 

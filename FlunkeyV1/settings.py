@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'AccountsApp',
     'RestaurantApp',
     'BotsApp',
+    'testapp',
     'api',
 
 ]

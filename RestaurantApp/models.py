@@ -44,10 +44,10 @@ class TempDelivery(models.Model):
         ('solid', 'solid'),
         ('liquid', 'liquid'),
     )
-    speed_choices = (
-        (120, 120),
-        (90,90),
-    )
+    # speed_choices = (
+    #     (120, 120),
+    #     (90,90),
+    # )
     username = models.CharField(max_length= 20, null = True)
     restaurant = models.CharField(max_length = 300)
     bot_name = models.CharField(max_length = 300)
@@ -58,7 +58,7 @@ class TempDelivery(models.Model):
     port = models.IntegerField(null=True)
     food_delivered = models.BooleanField(default = False)
     food_type = models.CharField(max_length = 100, choices = food_type_choices, default = 'solid')
-    speed = models.IntegerField(choices = speed_choices, default = 120)
+    speed = models.IntegerField( default = 120)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
@@ -83,7 +83,7 @@ class Delivery(models.Model):
     ip = models.CharField(max_length = 30, null = True)
     port = models.IntegerField(null = True)
     food_type = models.CharField(max_length=30, null = True)
-    speed_of_the_bot = models.IntegerField(null = True)
+    speed= models.IntegerField(null = True)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     food_delivered = models.BooleanField(default = False)

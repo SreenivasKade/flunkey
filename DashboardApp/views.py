@@ -37,6 +37,22 @@ def BotDashboardView(request, id):
                                                                         'startdate': startdate,
                                                                         'enddate':enddate,
                                                                     })
+        elif enddate == startdate:
+
+            e = datetime.strptime(enddate, '%Y-%m-%d')
+            d_post = Delivery.objects.filter(created_at__date = e)
+
+            return render(request, 'dashboardApp/bot_dashboard.html', {
+                                                                        'd_post':len(d_post),
+                                                                        'fd':len(fd),
+                                                                        'td':len(td),
+                                                                        'bot_name':bot.bot_name, 
+                                                                        'bot':bot,  
+                                                                        'tw':len(tw),
+                                                                        'startdate': startdate,
+                                                                        'enddate':enddate,
+                                                                    })
+            
         else:
             return HttpResponse('Invlaid dates submitted')
 
